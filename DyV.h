@@ -2,6 +2,7 @@
 #define DYV_H
 
 #include<iostream>
+#include <algorithm>
 using namespace std;
 
 
@@ -37,6 +38,35 @@ int BusquedaBinaria_INV(T x, T v[],int ini,int fin){
 		return BusquedaBinaria_INV(x,v,ini,medio-1);
 	}else{
 		return BusquedaBinaria_INV(x,v,medio+1,fin);
+	}
 }
+
+//////////////////////// parte 2///////////////////////////////////  
+template <typename T>
+int Partition (T v[],int ini,int fin){
+        T x= v[fin];
+        int i =ini;
+        for(int j=ini; j<=fin-1;j++){
+                if(v[j]<=x){
+                        swap(v[i],v[j]);
+                        i++;
+
+                }
+        }
+        swap (v[i],v[fin]);
+        return i;
+
 }
+template <typename T>
+
+void QuickSort(T v[],int ini, int fin){
+
+        if (ini<fin){
+                int pivot = Partition(v,ini,fin);
+                QuickSort(v,ini,pivot-1);
+                QuickSort(v,pivot+1,fin);
+        }
+
+}
+
 #endif

@@ -1,50 +1,52 @@
 #include <iostream>
+#include <chrono>
 #include "DyV.h"
 using namespace std;
 
+template <typename T>
+void imprimir(T v[], int n) {
+    for (int i = 0; i < n; i++) {
+        cout << v[i] << " ";
+    }
+    cout << endl;
+}
+
 int main() {
-    // Vector ascendente de enteros
-    int vi[] = {1, 3, 5, 7, 9};
+    int vi[] = {9, 2, 5, 1, 8};
     int ni = sizeof(vi) / sizeof(vi[0]);
-    int xi = 7;
-    int posi = BusquedaBinaria(xi, vi, 0, ni - 1);
-    cout << "Entero " << xi << " encontrado en posición: " << posi << endl;
 
-    // Vector ascendente de floats
-    float vfa[] = {1.1, 2.2, 3.3, 4.4, 5.5};
-    int nfa = sizeof(vfa) / sizeof(vfa[0]);
-    float xfa = 3.3;
-    int posfa = BusquedaBinaria(xfa, vfa, 0, nfa - 1);
-    cout << "Float " << xfa << " encontrado en posición: " << posfa << endl;
+    auto t1 = chrono::system_clock::now();
+    QuickSort(vi, 0, ni - 1);
+    auto t2 = chrono::system_clock::now();
 
-    // Vector ascendente de caracteres
-    char vca[] = {'a', 'c', 'e', 'g', 'i'};
-    int nca = sizeof(vca) / sizeof(vca[0]);
-    char xca = 'g';
-    int posca = BusquedaBinaria(xca, vca, 0, nca - 1);
-    cout << "Char '" << xca << "' encontrado en posición: " << posca << endl;
+    cout << "Enteros ordenados: ";
+    imprimir(vi, ni);
+    chrono::duration<float, milli> tiempo_i = t2 - t1;
+    cout << "Tiempo: " << tiempo_i.count() << " ms\n";
 
-    // Vector descendente de enteros
-    int vd[] = {9, 7, 5, 3, 1};
-    int nd = sizeof(vd) / sizeof(vd[0]);
-    int xd = 5;
-    int posd = BusquedaBinaria_INV(xd, vd, 0, nd - 1);
-    cout << "Descendente: " << xd << " en posición " << posd << endl;
+    float vf[] = {3.3, 1.1, 5.5, 2.2, 4.4};
+    int nf = sizeof(vf) / sizeof(vf[0]);
 
-    // Vector descendente de floats
-    float vfd[] = {5.5, 4.4, 3.3, 2.2, 1.1};
-    int nfd = sizeof(vfd) / sizeof(vfd[0]);
-    float xfd = 3.3;
-    int posfd = BusquedaBinaria_INV(xfd, vfd, 0, nfd - 1);
-    cout << "Float descendente: " << xfd << " en posición " << posfd << endl;
+    auto t3 = chrono::system_clock::now();
+    QuickSort(vf, 0, nf - 1);
+    auto t4 = chrono::system_clock::now();
 
-    // Vector descendente de caracteres
-    char vcd[] = {'z', 'x', 'm', 'f', 'a'};
-    int ncd = sizeof(vcd) / sizeof(vcd[0]);
-    char xcd = 'm';
-    int poscd = BusquedaBinaria_INV(xcd, vcd, 0, ncd - 1);
-    cout << "Char descendente: '" << xcd << "' en posición " << poscd << endl;
+    cout << "\nFloats ordenados: ";
+    imprimir(vf, nf);
+    chrono::duration<float, milli> tiempo_f = t4 - t3;
+    cout << "Tiempo: " << tiempo_f.count() << " ms\n";
+
+    char vc[] = {'z', 'm', 'a', 'x', 'f'};
+    int nc = sizeof(vc) / sizeof(vc[0]);
+
+    auto t5 = chrono::system_clock::now();
+    QuickSort(vc, 0, nc - 1);
+    auto t6 = chrono::system_clock::now();
+
+    cout << "\nChars ordenados: ";
+    imprimir(vc, nc);
+    chrono::duration<float, milli> tiempo_c = t6 - t5;
+    cout << "Tiempo: " << tiempo_c.count() << " ms\n";
 
     return 0;
 }
-
